@@ -1,5 +1,5 @@
 /**
- * swipe-4dir.js 0.0.0
+ * swipe-4-dir.js 0.0.0
  * author: Yoshiya Hinosawa (@kt3k)
  * license: MIT lisence
  */
@@ -7,7 +7,7 @@
 this.Swipe4Dir = (function (window, $) {
     'use strict';
 
-    /* module constants */
+    /* constants */
 
     var DIRECTION = {
         UP: 0,
@@ -22,8 +22,6 @@ this.Swipe4Dir = (function (window, $) {
 
     var EVENT = {
         SWIPE: {
-            START: 'swipestart',
-            CHANGE: 'swipechange',
             UP: 'swipeup',
             RIGHT: 'swiperight',
             DOWN: 'swipedown',
@@ -218,6 +216,14 @@ this.Swipe4Dir = (function (window, $) {
 
                 self.touchEnd();
 
+            },
+
+            mouseOut: function (event) {
+
+                event.preventDefault();
+
+                self.touchCancel();
+
             }
         };
     };
@@ -235,6 +241,7 @@ this.Swipe4Dir = (function (window, $) {
         } else {
             elm.addEventListener('mousedown', this.handlers.mouseDown, false);
             elm.addEventListener('mousemove', this.handlers.mouseMove, false);
+            elm.addEventListener('mouseout', this.handlers.mouseOut, false);
             elm.addEventListener('mouseup', this.handlers.mouseUp, false);
         }
     };
@@ -250,6 +257,7 @@ this.Swipe4Dir = (function (window, $) {
         } else {
             elm.removeEventListener('mousedown', this.handlers.mouseDown, false);
             elm.removeEventListener('mousemove', this.handlers.mouseMove, false);
+            elm.removeEventListener('mouseout', this.handlers.mouseOut, false);
             elm.removeEventListener('mouseup', this.handlers.mouseUp, false);
         }
     };
@@ -260,8 +268,8 @@ this.Swipe4Dir = (function (window, $) {
 
     if ($ != null) {
 
-        $.fn.swipeEvent = function () {
-            this._swipeEvent = new exports({elm: $(this)[0]});
+        $.fn.swipe4Dir = function () {
+            this._swipeEvent = new exports({elm: this[0]});
         };
 
         $.fn.swipeEventUnbind = function () {
