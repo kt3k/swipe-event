@@ -37,7 +37,6 @@ this.Swipe4Dir = (function (window, $) {
 
         this.elm = options.elm;
 
-        this.phase = null;
         this.fingerCount = 0;
 
         this.touchCurrent = null;
@@ -45,8 +44,6 @@ this.Swipe4Dir = (function (window, $) {
 
 
         this.bindEvents();
-
-        this.touchReset();
     };
 
     var prototype = exports.prototype;
@@ -93,7 +90,7 @@ this.Swipe4Dir = (function (window, $) {
      */
     prototype.swipeDirection = function () {
 
-        var angle = swipeAngle();
+        var angle = this.swipeAngle();
 
         if (angle < 45 || 315 <= angle) {
             return DIRECTION.RIGHT;
@@ -107,13 +104,13 @@ this.Swipe4Dir = (function (window, $) {
     };
 
     prototype.swipeEnd = function () {
-        var dist = swipeDistance();
+        var dist = this.swipeDistance();
 
         if (dist < SWIPE.THRESHOLD) {
             return;
         }
 
-        var dir = swipeDirection();
+        var dir = this.swipeDirection();
 
         if (dir === DIRECTION.UP) {
 
@@ -146,14 +143,10 @@ this.Swipe4Dir = (function (window, $) {
     };
 
     prototype.touchEnd = function () {
-        this.phase = PHASE.END;
-
         this.swipeEnd();
     };
 
     prototype.touchCancel = function () {
-        this.phase = PHASE.NONE;
-
         this.dispatchEvent(EVENT.SWIPE.CANCEL);
     };
 
