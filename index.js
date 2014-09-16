@@ -151,9 +151,11 @@ this.Swipe4Dir = (function (window, $) {
     };
 
     prototype.touchCancel = function () {
-        this.fingerCount = 0;
+        if (this.fingerCount > 0) {
+            this.fingerCount = 0;
 
-        this.dispatchEvent(EVENT.SWIPE.CANCEL);
+            this.dispatchEvent(EVENT.SWIPE.CANCEL);
+        }
     };
 
     prototype.createHandlers = function () {
