@@ -102,6 +102,12 @@ this.Swipe4Dir = (function (window, $) {
     };
 
     prototype.swipeEnd = function () {
+        if (this.fingerCount != 1) {
+            this.fingerCount = 0;
+
+            return;
+        }
+
         var dist = this.swipeDistance();
 
         if (dist < SWIPE.THRESHOLD) {
@@ -145,6 +151,8 @@ this.Swipe4Dir = (function (window, $) {
     };
 
     prototype.touchCancel = function () {
+        this.fingerCount = 0;
+
         this.dispatchEvent(EVENT.SWIPE.CANCEL);
     };
 
