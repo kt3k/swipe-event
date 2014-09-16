@@ -1,4 +1,24 @@
 <script src="jquery.js"></script>
 <script src="index.js"></script>
 
-<script></script>
+<script>$(function () {
+    var target = $('#main');
+    target.swipe4Dir();
+
+    target[0].addEventListener('swipeup', function () {console.log('swipe up'); });
+    target[0].addEventListener('swiperight', function () {console.log('swipe right'); });
+    target[0].addEventListener('swipedown', function () {console.log('swipe down'); });
+    target[0].addEventListener('swipeleft', function () {console.log('swipe left'); });
+    target[0].addEventListener('swipecancel', function () {console.log('swipe cancel'); });
+});</script>
+
+<style>
+#main {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border: solid 1px black;
+}
+</style>
+
+<div id="main"></div>
