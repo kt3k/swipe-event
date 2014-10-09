@@ -4,29 +4,14 @@
  * license: MIT lisence
  */
 
-this.Swipe4Dir = (function (window, $) {
+this.SwipeEvent = (function (window, $) {
     'use strict';
 
-    /* constants */
-
-    var DIRECTION = {
-        UP: 0,
-        DOWN: 1,
-        RIGHT: 2,
-        LEFT: 3
-    };
-
-    var SWIPE = {
-        THRESHOLD: 3
-    };
 
     var EVENT = {
         SWIPE: {
-            UP: 'swipeup',
-            RIGHT: 'swiperight',
-            DOWN: 'swipedown',
-            LEFT: 'swipeleft',
             CANCEL: 'swipecancel',
+            END: 'swipeend'
         }
     }
 
@@ -48,58 +33,15 @@ this.Swipe4Dir = (function (window, $) {
 
     prototype.dispatchEvent = function (eventName) {
         this.elm.dispatchEvent(new CustomEvent(eventName, {
-            startX: this.touchInitial.pageX,
-            startY: this.touchInitial.pageY,
-            endX: this.touchCurrent.pageX,
-            endY: this.touchCurrent.pageY
+            detail: {
+                startX: this.touchInitial.pageX,
+                startY: this.touchInitial.pageY,
+                endX: this.touchCurrent.pageX,
+                endY: this.touchCurrent.pageY
+            }
         }));
     };
 
-    /**
-     * Calculate uniform distance between the initial position and the last position.
-     * @private
-     */
-    prototype.swipeDistance = function () {
-
-        var x = this.touchCurrent.pageX - this.touchInitial.pageX;
-        var y = this.touchCurrent.pageY - this.touchInitial.pageY;
-
-        return Math.max(Math.abs(x), Math.abs(y));
-
-    };
-
-    /**
-     * Returns swipe angle in degree (0 < angle < 360).
-     * @private
-     */
-    prototype.swipeAngle = function () {
-
-        var rad = Math.atan2(
-            this.touchCurrent.pageY - this.touchInitial.pageY,
-            this.touchCurrent.pageX - this.touchInitial.pageX
-        );
-
-        return (Math.floor(rad * 180 / Math.PI) + 360) % 360;
-
-    };
-
-    /**
-     *
-     */
-    prototype.swipeDirection = function () {
-
-        var angle = this.swipeAngle();
-
-        if (angle < 45 || 315 <= angle) {
-            return DIRECTION.RIGHT;
-        } else if (45 <= angle && angle < 135) {
-            return DIRECTION.DOWN;
-        } else if (135 <= angle && angle < 225) {
-            return DIRECTION.LEFT;
-        } else {
-            return DIRECTION.UP;
-        }
-    };
 
     prototype.swipeEnd = function () {
         if (this.fingerCount != 1) {
@@ -108,31 +50,10 @@ this.Swipe4Dir = (function (window, $) {
             return;
         }
 
-        var dist = this.swipeDistance();
+        this.fingerCount = 0;
 
-        if (dist < SWIPE.THRESHOLD) {
-            return;
-        }
+        this.dispatchEvent(EVENT.SWIPE.END);
 
-        var dir = this.swipeDirection();
-
-        if (dir === DIRECTION.UP) {
-
-            this.dispatchEvent(EVENT.SWIPE.UP);
-
-        } else if (dir === DIRECTION.RIGHT) {
-
-            this.dispatchEvent(EVENT.SWIPE.RIGHT);
-
-        } else if (dir === DIRECTION.DOWN) {
-
-            this.dispatchEvent(EVENT.SWIPE.DOWN);
-
-        } else if (dir === DIRECTION.LEFT) {
-
-            this.dispatchEvent(EVENT.SWIPE.LEFT);
-
-        }
     };
 
     // touch event handlers and a resetter
@@ -239,46 +160,40 @@ this.Swipe4Dir = (function (window, $) {
     };
 
     prototype.bindEvents = function () {
-        var elm = this.elm;
 
         this.createHandlers();
 
         if (window.document.documentElement.hasOwnProperty('ontouchstart')) {
-            elm.addEventListener('touchstart', this.handlers.touchStart, false);
-            elm.addEventListener('touchmove', this.handlers.touchMove, false);
-            elm.addEventListener('touchend', this.handlers.touchEnd, false);
-            elm.addEventListener('touchcancel', this.handlers.touchCancel, false);
+            this.elm.addEventListener('touchstart', this.handlers.touchStart, false);
+            this.elm.addEventListener('touchmove', this.handlers.touchMove, false);
+            this.elm.addEventListener('touchend', this.handlers.touchEnd, false);
+            this.elm.addEventListener('touchcancel', this.handlers.touchCancel, false);
         } else {
-            elm.addEventListener('mousedown', this.handlers.mouseDown, false);
-            elm.addEventListener('mousemove', this.handlers.mouseMove, false);
-            elm.addEventListener('mouseout', this.handlers.mouseOut, false);
-            elm.addEventListener('mouseup', this.handlers.mouseUp, false);
+            this.elm.addEventListener('mousedown', this.handlers.mouseDown, false);
+            this.elm.addEventListener('mousemove', this.handlers.mouseMove, false);
+            this.elm.addEventListener('mouseout', this.handlers.mouseOut, false);
+            this.elm.addEventListener('mouseup', this.handlers.mouseUp, false);
         }
     };
 
     prototype.unbindEvents = function () {
-        var elm = this.elm;
 
         if (window.document.documentElement.hasOwnProperty('ontouchstart')) {
-            elm.removeEventListener('touchstart', this.handlers.touchStart, false);
-            elm.removeEventListener('touchmove', this.handlers.touchMove, false);
-            elm.removeEventListener('touchend', this.handlers.touchEnd, false);
-            elm.removeEventListener('touchcancel', this.handlers.touchCancel, false);
+            this.elm.removeEventListener('touchstart', this.handlers.touchStart, false);
+            this.elm.removeEventListener('touchmove', this.handlers.touchMove, false);
+            this.elm.removeEventListener('touchend', this.handlers.touchEnd, false);
+            this.elm.removeEventListener('touchcancel', this.handlers.touchCancel, false);
         } else {
-            elm.removeEventListener('mousedown', this.handlers.mouseDown, false);
-            elm.removeEventListener('mousemove', this.handlers.mouseMove, false);
-            elm.removeEventListener('mouseout', this.handlers.mouseOut, false);
-            elm.removeEventListener('mouseup', this.handlers.mouseUp, false);
+            this.elm.removeEventListener('mousedown', this.handlers.mouseDown, false);
+            this.elm.removeEventListener('mousemove', this.handlers.mouseMove, false);
+            this.elm.removeEventListener('mouseout', this.handlers.mouseOut, false);
+            this.elm.removeEventListener('mouseup', this.handlers.mouseUp, false);
         }
     };
 
-    exports.EVENT = EVENT;
-    exports.DIRECTION = DIRECTION;
-    exports.SWIPE = SWIPE;
+    if ($ != null && $.fn != null) {
 
-    if ($ != null) {
-
-        $.fn.swipe4Dir = function () {
+        $.fn.swipeEvent = function () {
             this._swipeEvent = new exports({elm: this[0]});
         };
 
@@ -286,6 +201,170 @@ this.Swipe4Dir = (function (window, $) {
             this._swipeEvent.unbindEvents();
 
             this._swipeEvent = null;
+        }
+
+    }
+
+    return exports;
+
+}(window, window.$));
+
+
+window.SwipeEvent.SwipeCross = (function (window, $) {
+    'use strict';
+
+
+    var SWIPE = {
+        THRESHOLD: 3
+    };
+
+    var DIRECTION = {
+        UP: 0,
+        DOWN: 1,
+        RIGHT: 2,
+        LEFT: 3
+    };
+
+    var EVENT = {
+        SWIPE: {
+            UP: 'swipeup',
+            RIGHT: 'swiperight',
+            DOWN: 'swipedown',
+            LEFT: 'swipeleft'
+        }
+    }
+
+    var exports = function (options) {
+        options = options || {};
+
+        this.elm = options.elm;
+
+        this.bindEvents();
+    };
+
+    var crossSwipePrototype = exports.prototype;
+
+    crossSwipePrototype.createHandlers = function () {
+
+        var self = this;
+
+        this.handler = function (event) {
+            event.preventDefault
+
+            var stroke = new SwipeStroke(event.detail.startX, event.detail.startY, event.detail.endX, event.detail.endY);
+
+            if (stroke.distance() <= SWIPE.THRESHOLD) {
+                return;
+            }
+
+            var direction = stroke.direction();
+
+            if (direction === DIRECTION.UP) {
+                self.dispatchEvent(EVENT.SWIPE.UP);
+            } else if (direction === DIRECTION.LEFT) {
+                self.dispatchEvent(EVENT.SWIPE.LEFT);
+            } else if (direction === DIRECTION.RIGHT) {
+                self.dispatchEvent(EVENT.SWIPE.RIGHT);
+            } else {
+                self.dispatchEvent(EVENT.SWIPE.DOWN);
+            }
+        }
+    };
+
+    crossSwipePrototype.bindEvents = function () {
+        this.createHandlers();
+
+        this.elm.addEventListener('swipeend', this.handler, false);
+    };
+
+    crossSwipePrototype.unbindEvents = function () {
+        this.elm.removeEventListener('swipeend', this.handler, false);
+    };
+
+    crossSwipePrototype.dispatchEvent = function (eventName) {
+        this.elm.dispatchEvent(new CustomEvent(eventName, {}));
+    };
+
+    /**
+     * @class
+     */
+    var SwipeStroke = function (startX, startY, endX, endY) {
+        this.startX = startX;
+        this.startY = startY;
+        this.endX = endX;
+        this.endY = endY;
+    }
+
+    var prototype = SwipeStroke.prototype;
+
+    /**
+     * Calculate uniform distance between the initial position and the last position.
+     * @private
+     */
+    prototype.distance = function () {
+
+        var x = this.endX - this.startX;
+        var y = this.endY - this.startY;
+
+        return Math.max(Math.abs(x), Math.abs(y));
+
+    };
+
+    /**
+     * Returns swipe angle in degree (0 < angle < 360).
+     * @private
+     */
+    prototype.angle = function () {
+
+        var rad = Math.atan2(
+            this.endY - this.startY,
+            this.endX - this.startX
+        );
+
+        return (Math.floor(rad * 180 / Math.PI) + 360) % 360;
+
+    };
+
+    /**
+     *
+     */
+    prototype.direction = function () {
+
+        var angle = this.angle();
+
+        if (angle < 45 || 315 <= angle) {
+            return DIRECTION.RIGHT;
+        } else if (45 <= angle && angle < 135) {
+            return DIRECTION.DOWN;
+        } else if (135 <= angle && angle < 225) {
+            return DIRECTION.LEFT;
+        } else {
+            return DIRECTION.UP;
+        }
+    };
+
+    if ($ != null && $.fn != null) {
+
+        $.fn.swipeCross = function () {
+
+            if (this._swipeEvent == null) {
+                this._swipeEvent = new SwipeEvent({elm: this[0]});
+            }
+
+            this._swipeCross = new exports({elm: this[0]});
+        };
+
+        $.fn.swipeCrossUnbind = function () {
+
+            if (this._swipeEvent != null) {
+                this._swipeEvent.unbindEvents();
+
+                this._swipeEvent = null;
+            }
+
+            this._swipeCross.unbindEvents();
+
+            this._swipeCross = null;
         }
 
     }

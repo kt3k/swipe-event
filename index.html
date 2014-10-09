@@ -3,13 +3,14 @@
 
 <script>$(function () {
     var target = $('#main');
-    target.swipe4Dir();
+    target.swipeCross();
 
     target[0].addEventListener('swipeup', function () {console.log('swipe up'); });
     target[0].addEventListener('swiperight', function () {console.log('swipe right'); });
     target[0].addEventListener('swipedown', function () {console.log('swipe down'); });
     target[0].addEventListener('swipeleft', function () {console.log('swipe left'); });
     target[0].addEventListener('swipecancel', function () {console.log('swipe cancel'); });
+    target[0].addEventListener('swipeend', function (event) {console.log('swipe end'); });
 });</script>
 
 <style>
