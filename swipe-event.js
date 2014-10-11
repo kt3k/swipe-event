@@ -1,5 +1,5 @@
 /**
- * swipe-4-dir.js 0.0.0
+ * swipe-event.js 0.0.0
  * author: Yoshiya Hinosawa (@kt3k)
  * license: MIT lisence
  */
