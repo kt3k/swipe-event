@@ -1,0 +1,17 @@
+{
+  "name": "SwipeEvent",
+  "version": "0.0.0",
+  "authors": [
+    "Yoshiya Hinosawa <stibium121@gmail.com>"
+  ],
+  "description": "Simple swipe event",
+  "main": "swipe-event.js",
+  "keywords": [
+    "swipe"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "*spec*"
+  ]
+}
