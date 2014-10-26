@@ -58,7 +58,7 @@ this.SwipeEvent = (function (window, $) {
 
     // touch event handlers and a resetter
     prototype.touchStart = function (touch) {
-        this.touchInitial = touch;
+        this.touchInitial = {pageX: touch.pageX, pageY: touch.pageY};
         this.touchCurrent = touch;
         this.fingerCount = 1;
     };
