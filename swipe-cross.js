@@ -43,7 +43,7 @@ window.SwipeEvent.SwipeCross = (function (window, $) {
         var self = this;
 
         this.handler = function (event) {
-            event.preventDefault
+            event.preventDefault();
 
             var stroke = new SwipeStroke(event.detail.startX, event.detail.startY, event.detail.endX, event.detail.endY);
 
