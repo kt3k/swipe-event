@@ -195,12 +195,16 @@ this.SwipeEvent = (function (window, $) {
 
         $.fn.swipeEvent = function () {
             this._swipeEvent = new exports({elm: this[0]});
+
+            return this;
         };
 
         $.fn.swipeEventUnbind = function () {
             this._swipeEvent.unbindEvents();
 
             this._swipeEvent = null;
+
+            return this;
         }
 
     }

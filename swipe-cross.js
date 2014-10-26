@@ -146,6 +146,8 @@ window.SwipeEvent.SwipeCross = (function (window, $) {
             }
 
             this._swipeCross = new exports({elm: this[0]});
+
+            return this;
         };
 
         $.fn.swipeCrossUnbind = function () {
@@ -159,6 +161,8 @@ window.SwipeEvent.SwipeCross = (function (window, $) {
             this._swipeCross.unbindEvents();
 
             this._swipeCross = null;
+
+            return this;
         }
 
     }
