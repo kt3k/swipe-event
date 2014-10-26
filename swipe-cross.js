@@ -142,7 +142,7 @@ window.SwipeEvent.SwipeCross = (function (window, $) {
         $.fn.swipeCross = function () {
 
             if (this._swipeEvent == null) {
-                this._swipeEvent = new exports({elm: this[0]});
+                this._swipeEvent = new window.SwipeEvent({elm: this[0]});
             }
 
             this._swipeCross = new exports({elm: this[0]});
