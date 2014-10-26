@@ -1,17 +1,18 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="jquery.js"></script>
 <script src="swipe-event.js"></script>
 <script src="swipe-cross.js"></script>
 
 <script>$(function () {
     var target = $('#main');
-    target.swipeCross();
-
-    target[0].addEventListener('swipeup', function () {console.log('swipe up'); });
-    target[0].addEventListener('swiperight', function () {console.log('swipe right'); });
-    target[0].addEventListener('swipedown', function () {console.log('swipe down'); });
-    target[0].addEventListener('swipeleft', function () {console.log('swipe left'); });
-    target[0].addEventListener('swipecancel', function () {console.log('swipe cancel'); });
-    target[0].addEventListener('swipeend', function (event) {console.log('swipe end'); });
+    target
+        .swipeCross()
+        .on('swipeup', function () {console.log('swipe up'); })
+        .on('swiperight', function () {console.log('swipe right'); })
+        .on('swipedown', function () {console.log('swipe down'); })
+        .on('swipeleft', function () {console.log('swipe left'); })
+        .on('swipecancel', function () {console.log('swipe cancel'); })
+        .on('swipeend', function (event) {console.log('swipe end'); })
 });</script>
 
 <style>
