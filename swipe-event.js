@@ -13,7 +13,7 @@ this.SwipeEvent = (function (window, $) {
             CANCEL: 'swipecancel',
             END: 'swipeend'
         }
-    }
+    };
 
     var exports = function (options) {
         options = options || {};
@@ -44,7 +44,7 @@ this.SwipeEvent = (function (window, $) {
 
 
     prototype.swipeEnd = function () {
-        if (this.fingerCount != 1) {
+        if (this.fingerCount !== 1) {
             this.fingerCount = 0;
 
             return;
@@ -205,7 +205,7 @@ this.SwipeEvent = (function (window, $) {
             this._swipeEvent = null;
 
             return this;
-        }
+        };
 
     }
 

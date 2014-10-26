@@ -26,7 +26,7 @@ window.SwipeEvent.SwipeCross = (function (window, $) {
             DOWN: 'swipedown',
             LEFT: 'swipeleft'
         }
-    }
+    };
 
     var exports = function (options) {
         options = options || {};
@@ -62,7 +62,7 @@ window.SwipeEvent.SwipeCross = (function (window, $) {
             } else {
                 self.dispatchEvent(EVENT.SWIPE.DOWN);
             }
-        }
+        };
     };
 
     crossSwipePrototype.bindEvents = function () {
@@ -87,7 +87,7 @@ window.SwipeEvent.SwipeCross = (function (window, $) {
         this.startY = startY;
         this.endX = endX;
         this.endY = endY;
-    }
+    };
 
     var prototype = SwipeStroke.prototype;
 
@@ -142,7 +142,7 @@ window.SwipeEvent.SwipeCross = (function (window, $) {
         $.fn.swipeCross = function () {
 
             if (this._swipeEvent == null) {
-                this._swipeEvent = new SwipeEvent({elm: this[0]});
+                this._swipeEvent = new exports({elm: this[0]});
             }
 
             this._swipeCross = new exports({elm: this[0]});
@@ -163,7 +163,7 @@ window.SwipeEvent.SwipeCross = (function (window, $) {
             this._swipeCross = null;
 
             return this;
-        }
+        };
 
     }
 
