@@ -1,4 +1,4 @@
-# SwipeEvent v0.2.1
+# SwipeEvent v0.2.2
 
 > Handle swipe events
 
