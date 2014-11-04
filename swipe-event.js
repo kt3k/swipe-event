@@ -29,6 +29,16 @@ this.SwipeEvent = (function (window, $) {
         this.bindEvents();
     };
 
+
+    /**
+     * Detect if environment supports touch
+     *
+     * @return {Boolean} true if device supports touch, otherwise false
+     */
+    exports.isTouchDevice = function () {
+        return 'ontouchstart' in window.document.documentElement;
+    };
+
     var prototype = exports.prototype;
 
     prototype.dispatchEvent = function (eventName) {
@@ -163,7 +173,7 @@ this.SwipeEvent = (function (window, $) {
 
         this.createHandlers();
 
-        if (window.document.documentElement.hasOwnProperty('ontouchstart')) {
+        if (exports.isTouchDevice()) {
             this.elm.addEventListener('touchstart', this.handlers.touchStart, false);
             this.elm.addEventListener('touchmove', this.handlers.touchMove, false);
             this.elm.addEventListener('touchend', this.handlers.touchEnd, false);
@@ -178,7 +188,7 @@ this.SwipeEvent = (function (window, $) {
 
     prototype.unbindEvents = function () {
 
-        if (window.document.documentElement.hasOwnProperty('ontouchstart')) {
+        if (exports.isTouchDevice()) {
             this.elm.removeEventListener('touchstart', this.handlers.touchStart, false);
             this.elm.removeEventListener('touchmove', this.handlers.touchMove, false);
             this.elm.removeEventListener('touchend', this.handlers.touchEnd, false);
