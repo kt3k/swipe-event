@@ -51,3 +51,7 @@ $('#swipe').on('swipedown', function () {...});
 
 $('#swipe').swipeCrossUnbind();
 ```
+
+# History
+
+- 2014-11-04   v0.3.1    iOS8 Safari support.
