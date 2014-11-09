@@ -153,12 +153,17 @@ window.SwipeEvent.SwipeCross = (function (window, $) {
         $.fn.swipeCrossUnbind = function () {
 
             if (this._swipeEvent != null) {
+
                 this._swipeEvent.unbindEvents();
 
                 this._swipeEvent = null;
             }
 
-            this._swipeCross.unbindEvents();
+            if (this._swipeCross != null) {
+
+                this._swipeCross.unbindEvents();
+
+            }
 
             this._swipeCross = null;
 

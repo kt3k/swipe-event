@@ -210,7 +210,10 @@ this.SwipeEvent = (function (window, $) {
         };
 
         $.fn.swipeEventUnbind = function () {
-            this._swipeEvent.unbindEvents();
+
+            if (this._swipeEvent != null) {
+                this._swipeEvent.unbindEvents();
+            }
 
             this._swipeEvent = null;
 
