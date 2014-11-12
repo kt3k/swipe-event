@@ -5,7 +5,10 @@
     "Yoshiya Hinosawa <stibium121@gmail.com>"
   ],
   "description": "Simple swipe event",
-  "main": "swipe-event.js",
+  "main": [
+    "swipe-event.js",
+    "swipe-cross.js"
+  ],
   "keywords": [
     "swipe"
   ],
