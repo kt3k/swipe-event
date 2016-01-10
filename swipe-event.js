@@ -4,7 +4,7 @@
  * license: MIT lisence
  */
 
-this.SwipeEvent = (function (window, $) {
+window.SwipeEvent = (function (window, $) {
     'use strict';
 
 
