@@ -1,6 +1,6 @@
 {
   "name": "swipe-event",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "description": "Simple swipe event on dom",
   "main": "swipe-event.js",
   "scripts": {
