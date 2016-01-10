@@ -1,8 +1,8 @@
-# SwipeEvent v0.3.3
+# swipe-event v0.3.3
 
-[![Build Status](https://travis-ci.org/kt3k/SwipeEvent.svg?branch=master)](https://travis-ci.org/kt3k/SwipeEvent)
+[![Build Status](https://travis-ci.org/kt3k/swipe-event.svg?branch=master)](https://travis-ci.org/kt3k/swipe-event)
 
-> Handle swipe events
+> Simple swipe event on dom
 
 # Usage
 

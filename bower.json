@@ -4,7 +4,7 @@
   "authors": [
     "Yoshiya Hinosawa <stibium121@gmail.com>"
   ],
-  "description": "Simple swipe event",
+  "description": "Simple swipe event on dom",
   "main": [
     "swipe-event.js",
     "swipe-cross.js"
