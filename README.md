@@ -1,4 +1,4 @@
-# swipe-event v0.4.1
+# swipe-event v0.4.2
 
 [![Build Status](https://travis-ci.org/kt3k/swipe-event.svg?branch=master)](https://travis-ci.org/kt3k/swipe-event)
 
