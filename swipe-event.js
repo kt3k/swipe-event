@@ -7,7 +7,6 @@
 window.SwipeEvent = (function (window, $) {
     'use strict';
 
-
     var EVENT = {
         SWIPE: {
             CANCEL: 'swipecancel',
@@ -15,7 +14,7 @@ window.SwipeEvent = (function (window, $) {
         }
     };
 
-    var exports = function (options) {
+    var SwipeEvent = function (options) {
         options = options || {};
 
         this.elm = options.elm;
@@ -25,21 +24,19 @@ window.SwipeEvent = (function (window, $) {
         this.touchCurrent = null;
         this.touchInitial = null;
 
-
         this.bindEvents();
     };
-
 
     /**
      * Detect if environment supports touch
      *
      * @return {Boolean} true if device supports touch, otherwise false
      */
-    exports.isTouchDevice = function () {
+    SwipeEvent.isTouchDevice = function () {
         return 'ontouchstart' in window.document.documentElement;
     };
 
-    var prototype = exports.prototype;
+    var prototype = SwipeEvent.prototype;
 
     prototype.dispatchEvent = function (eventName) {
         this.elm.dispatchEvent(new CustomEvent(eventName, {
@@ -51,7 +48,6 @@ window.SwipeEvent = (function (window, $) {
             }
         }));
     };
-
 
     prototype.swipeEnd = function () {
         if (this.fingerCount !== 1) {
@@ -173,7 +169,7 @@ window.SwipeEvent = (function (window, $) {
 
         this.createHandlers();
 
-        if (exports.isTouchDevice()) {
+        if (SwipeEvent.isTouchDevice()) {
             this.elm.addEventListener('touchstart', this.handlers.touchStart, false);
             this.elm.addEventListener('touchmove', this.handlers.touchMove, false);
             this.elm.addEventListener('touchend', this.handlers.touchEnd, false);
@@ -188,7 +184,7 @@ window.SwipeEvent = (function (window, $) {
 
     prototype.unbindEvents = function () {
 
-        if (exports.isTouchDevice()) {
+        if (SwipeEvent.isTouchDevice()) {
             this.elm.removeEventListener('touchstart', this.handlers.touchStart, false);
             this.elm.removeEventListener('touchmove', this.handlers.touchMove, false);
             this.elm.removeEventListener('touchend', this.handlers.touchEnd, false);
@@ -204,7 +200,7 @@ window.SwipeEvent = (function (window, $) {
     if ($ != null && $.fn != null) {
 
         $.fn.swipeEvent = function () {
-            this._swipeEvent = new exports({elm: this[0]});
+            this._swipeEvent = new SwipeEvent({elm: this[0]});
 
             return this;
         };
@@ -222,6 +218,6 @@ window.SwipeEvent = (function (window, $) {
 
     }
 
-    return exports;
+    return SwipeEvent;
 
 }(window, window.$));

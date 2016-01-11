@@ -4,7 +4,8 @@
   "description": "Simple swipe event on dom",
   "main": "swipe-event.js",
   "scripts": {
-    "test": "open index.html"
+    "test": "open index.html",
+    "lint": "souffle --semi"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,16 @@
   "bugs": {
     "url": "https://github.com/kt3k/SwipeEvent/issues"
   },
-  "homepage": "https://github.com/kt3k/SwipeEvent#readme"
+  "homepage": "https://github.com/kt3k/SwipeEvent#readme",
+  "devDependencies": {
+    "souffle-cli": "^2.0.2"
+  },
+  "souffle": {
+    "globals": [
+      "CustomEvent"
+    ],
+    "ignore": [
+      "jquery.js"
+    ]
+  }
 }

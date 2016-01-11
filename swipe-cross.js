@@ -7,7 +7,6 @@
 window.SwipeEvent.SwipeCross = (function (window, $) {
     'use strict';
 
-
     var SWIPE = {
         THRESHOLD: 3
     };
@@ -28,7 +27,7 @@ window.SwipeEvent.SwipeCross = (function (window, $) {
         }
     };
 
-    var exports = function (options) {
+    var SwipeCross = function (options) {
         options = options || {};
 
         this.elm = options.elm;
@@ -36,7 +35,7 @@ window.SwipeEvent.SwipeCross = (function (window, $) {
         this.bindEvents();
     };
 
-    var crossSwipePrototype = exports.prototype;
+    var crossSwipePrototype = SwipeCross.prototype;
 
     crossSwipePrototype.createHandlers = function () {
 
@@ -126,11 +125,11 @@ window.SwipeEvent.SwipeCross = (function (window, $) {
 
         var angle = this.angle();
 
-        if (angle < 45 || 315 <= angle) {
+        if (angle < 45 || angle >= 315) {
             return DIRECTION.RIGHT;
-        } else if (45 <= angle && angle < 135) {
+        } else if (angle >= 45 && angle < 135) {
             return DIRECTION.DOWN;
-        } else if (135 <= angle && angle < 225) {
+        } else if (angle >= 135 && angle < 225) {
             return DIRECTION.LEFT;
         } else {
             return DIRECTION.UP;
@@ -145,7 +144,7 @@ window.SwipeEvent.SwipeCross = (function (window, $) {
                 this._swipeEvent = new window.SwipeEvent({elm: this[0]});
             }
 
-            this._swipeCross = new exports({elm: this[0]});
+            this._swipeCross = new SwipeCross({elm: this[0]});
 
             return this;
         };
@@ -172,6 +171,6 @@ window.SwipeEvent.SwipeCross = (function (window, $) {
 
     }
 
-    return exports;
+    return SwipeCross;
 
 }(window, window.$));
