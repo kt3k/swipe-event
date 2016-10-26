@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/kt3k/SwipeEvent#readme",
   "devDependencies": {
-    "souffle-cli": "^2.0.2"
+    "souffle-cli": "^3.1.1"
   },
   "souffle": {
     "globals": [
